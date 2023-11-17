@@ -64,7 +64,7 @@ public class Grid {
             }
         }
 
-        int zeroIndexBottom = zeroIndex + size - 1;
+        int zeroIndexBottom = (size + 1) - (zeroIndex + 1);
 
 
         return size % 2 != 0 && inverseCount % 2 == 0 || size % 2 == 0 && (zeroIndexBottom % 2 == 0 && inverseCount % 2 != 0 || zeroIndexBottom % 2 != 0 && inverseCount % 2 == 0);
