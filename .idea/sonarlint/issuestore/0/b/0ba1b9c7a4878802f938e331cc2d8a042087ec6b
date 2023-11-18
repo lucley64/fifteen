@@ -1,4 +1,13 @@
 
-G	java:S106"+Replace this use of System.out by a logger.(‡³”˜8ª ßà½1
-G	java:S106"+Replace this use of System.out by a logger.(ğÂÄ˜8« ßà½1
-G	java:S106"+Replace this use of System.out by a logger.(üêÄ£8« ßà½1
+X	java:S125
+"<This block of commented-out lines of code should be removed.(Ê•…8Şë¾•¾1
+G	java:S106"+Replace this use of System.out by a logger.(’‹³ƒ8ßë¾•¾1
+L	java:S106"+Replace this use of System.out by a logger.(®’€úÿÿÿÿ8ßë¾•¾1
+L	java:S106"+Replace this use of System.out by a logger.(…§»ëÿÿÿÿÿ8ßë¾•¾1
+G	java:S106"+Replace this use of System.out by a logger.(Ç¯‡ö8ßë¾•¾1
+G	java:S106"+Replace this use of System.out by a logger.(’‹³ƒ8ßë¾•¾1
+L	java:S106"+Replace this use of System.out by a logger.(®’€úÿÿÿÿ8ßë¾•¾1
+L	java:S106"+Replace this use of System.out by a logger.(…§»ëÿÿÿÿÿ8ßë¾•¾1
+G	java:S106"+Replace this use of System.out by a logger.(Ç¯‡ö8àë¾•¾1
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ş±˜¾1

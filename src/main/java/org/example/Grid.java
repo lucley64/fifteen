@@ -1,12 +1,10 @@
 package org.example;
 
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class Grid {
@@ -14,8 +12,10 @@ public class Grid {
 
     List<List<Integer>> tiles;
 
-    int zeroIndex;
+    int zeroX;
+    int zeroY;
 
+    int g = 0;
 
     public Grid(int size) {
         this.size = size;
@@ -30,24 +30,26 @@ public class Grid {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < size; j++) {
                 int index = random.nextInt(integers.size());
-                if (index < integers.size()) {
-                    int tile = integers.remove(index);
-                    row.add(tile);
-                    if (tile == 0) {
-                        zeroIndex = i;
-                    }
+                int tile = integers.remove(index);
+                row.add(tile);
+                if (tile == 0) {
+                    zeroX = i;
+                    zeroY = j;
                 }
             }
             tiles.add(row);
         }
     }
 
-    public Grid(@NotNull List<List<Integer>> tiles){
+    public Grid(@NotNull List<List<Integer>> tiles) {
         this.tiles = tiles;
         size = tiles.size();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (tiles.get(i).get(j) == 0){zeroIndex = i;}
+                if (tiles.get(i).get(j) == 0) {
+                    zeroX = i;
+                    zeroY = j;
+                }
             }
         }
     }
@@ -64,7 +66,7 @@ public class Grid {
             }
         }
 
-        int zeroIndexBottom = (size + 1) - (zeroIndex + 1);
+        int zeroIndexBottom = (size + 1) - (zeroX + 1);
 
 
         return size % 2 != 0 && inverseCount % 2 == 0 || size % 2 == 0 && (zeroIndexBottom % 2 == 0 && inverseCount % 2 != 0 || zeroIndexBottom % 2 != 0 && inverseCount % 2 == 0);
@@ -87,5 +89,50 @@ public class Grid {
 
 
         return stringJoiner.toString();
+    }
+
+    public @NotNull List<List<Integer>> exchange(int iaX, int iaY, int ibX, int ibY) {
+        var aX = new ArrayList<>(tiles.get(iaX));
+        var aY = aX.get(iaY);
+        var bX = tiles.get(iaX) == tiles.get(ibX) ? aX : new ArrayList<>(tiles.get(ibX));
+        var bY = bX.get(ibY);
+
+        aX.set(iaY, bY);
+        bX.set(ibY, aY);
+
+        var tiles2 = new ArrayList<>(tiles);
+        tiles2.set(iaX, aX);
+        tiles2.set(ibX, bX);
+
+        return tiles2;
+    }
+
+
+    @Contract("_ -> new")
+    public static @NotNull Grid finalState(int size) {
+        List<List<Integer>> finalState = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            finalState.add(new ArrayList<>());
+            for (int j = 0; j < size; j++) {
+                finalState.get(i).add(i * size + j + 1);
+            }
+        }
+
+        finalState.getLast().set(size - 1, 0);
+        return new Grid(finalState);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Grid grid = (Grid) o;
+        return Objects.equals(tiles, grid.tiles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tiles);
     }
 }
